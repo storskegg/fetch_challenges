@@ -29,19 +29,23 @@ Verify you have Go installed by bringing up a terminal, and entering `go version
 
 ### Installing this Repo
 
-With Go installed, simply run `go get github.com/storskegg/fetch_challenges`. You should find the repo cloned into `$HOME/go/src/github.com/storskegg/fetch/challenges`.
+With Go installed, simply run `go get github.com/storskegg/fetch_challenges` to both clone and build the repo. Built executables are installed into the path `$HOME/go/bin`, which should be in your `$PATH` depending on your Go installation. The repo is cloned into `$HOME/go/src/github.com/storskegg/fetch_challenges`.
 
-In that directory, run the following commands:
-1. `go mod vendor`
-2. `go test`
-3. `go build`
+### Building & Starting the Server
 
-### Starting the Server
+If your $GOBIN directory (`$HOME/go/bin`) is in your `$PATH`, then you should be able to simply run `fetch_challenges` from your terminal to start the server.
+
+If you'd like to test and build the service by hand, simply `cd` into the repo's directory. Then run this command: `go mod vendor`. This pulls down the library dependencies necessary to build the application.
+
+- `go test` runs the unit tests for the service's logic.
+- `go build` builds the application, and places the executable in the current directory.
 
 To start the server, simply run the new executable in that directory.
 
 - `fetch_challenges` for Linux and Mac
 - `fetch_challenges.exe` for Windows
+
+A NOTE ON TESTS: While I have written thorough-ish tests around the logic specific to the two challenges (pyramid and versions), I have not written any unit tests around the API endpoints themselves that implement the logic, since that'd be more testing Echo, my Go HTTP framework of choice, rather than actually testing my own logic.
 
 ## Challenges
 
