@@ -43,7 +43,7 @@ func SortLedgerCounts(ledger Ledger) []int {
 }
 
 func IsCardinalIncrementalOrder(counts []int) (b bool) {
-	if len(counts) == 1 {
+	if len(counts) == 1 && counts[0] == 1 {
 		return true
 	}
 

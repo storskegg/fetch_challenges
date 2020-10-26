@@ -56,6 +56,13 @@ func TestIsCardinalIncrementalOrder(t *testing.T) {
 			},
 			wantB: true,
 		},
+		{
+			name: "2 should return false",
+			args: args{
+				counts: []int{2},
+			},
+			wantB: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -172,6 +179,15 @@ func TestLedgerFromWord(t *testing.T) {
 				'n': 2,
 			},
 		},
+		{
+			name: "a to ledger",
+			args: args{
+				word: "a",
+			},
+			want: Ledger{
+				'a': 1,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -185,15 +201,37 @@ func TestLedgerFromWord(t *testing.T) {
 
 func TestSortLedgerCounts(t *testing.T) {
 	type args struct {
-		ledger    Ledger
-		lenLedger int
+		ledger Ledger
 	}
 	tests := []struct {
 		name string
 		args args
 		want []int
 	}{
-		// TODO: Add test cases.
+		{
+			name: "banana ledger to 1, 2, 3",
+			args: args{
+				ledger: Ledger{
+					'a': 3,
+					'b': 1,
+					'n': 2,
+				},
+			},
+			want: []int{1, 2, 3},
+		},
+		{
+			name: "gibbon ledger to 1, 1, 1, 1, 2",
+			args: args{
+				ledger: Ledger{
+					'g': 1,
+					'i': 1,
+					'b': 2,
+					'o': 1,
+					'n': 1,
+				},
+			},
+			want: []int{1, 1, 1, 1, 2},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
