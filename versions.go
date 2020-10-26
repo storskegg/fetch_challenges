@@ -12,22 +12,8 @@ const (
 
 func VersionStringCompare(versionA, versionB string) (string, error) {
 	fmt.Printf("Comparing %s and %s...\n", versionA, versionB)
-	normalizedA := versionA
-	normalizedB := versionB
 
-	pA := strings.Count(versionA, ".")
-	pB := strings.Count(versionB, ".")
-
-	fmt.Printf("pA: %d\n", pA)
-	fmt.Printf("pB: %d\n", pB)
-
-	if pA > pB {
-		normalizedA = versionA
-		normalizedB = versionB + strings.Repeat(".0", pA-pB)
-	} else if pB > pA {
-		normalizedA = versionA + strings.Repeat(".0", pB-pA)
-		normalizedB = versionB
-	}
+	normalizedA, normalizedB := NormalizeVersionStrings(versionA, versionB)
 
 	fmt.Println("normalizedA: " + normalizedA)
 	fmt.Println("normalizedB: " + normalizedB)
@@ -63,4 +49,25 @@ func VersionStringCompare(versionA, versionB string) (string, error) {
 	}
 
 	return fmt.Sprintf("%s is %s %s\n", versionA, relationship, versionB), nil
+}
+
+func NormalizeVersionStrings(versionA, versionB string) (normalizedA, normalizedB string) {
+	normalizedA = versionA
+	normalizedB = versionB
+
+	pA := strings.Count(versionA, ".")
+	pB := strings.Count(versionB, ".")
+
+	fmt.Printf("pA: %d\n", pA)
+	fmt.Printf("pB: %d\n", pB)
+
+	if pA > pB {
+		normalizedA = versionA
+		normalizedB = versionB + strings.Repeat(".0", pA-pB)
+	} else if pB > pA {
+		normalizedA = versionA + strings.Repeat(".0", pB-pA)
+		normalizedB = versionB
+	}
+
+	return
 }
