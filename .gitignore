@@ -1,3 +1,10 @@
+# dependencies
 vendor/
+
+# our binary
 fetch_chalenges
+*.exe
+
+# JetBrains project files
 .idea/
+
