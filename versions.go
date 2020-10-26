@@ -15,9 +15,6 @@ func VersionStringCompare(versionA, versionB string) (string, error) {
 
 	normalizedA, normalizedB := NormalizeVersionStrings(versionA, versionB)
 
-	fmt.Println("normalizedA: " + normalizedA)
-	fmt.Println("normalizedB: " + normalizedB)
-
 	vA := strings.Split(normalizedA, ".")
 	vB := strings.Split(normalizedB, ".")
 
@@ -57,9 +54,6 @@ func NormalizeVersionStrings(versionA, versionB string) (normalizedA, normalized
 
 	pA := strings.Count(versionA, ".")
 	pB := strings.Count(versionB, ".")
-
-	fmt.Printf("pA: %d\n", pA)
-	fmt.Printf("pB: %d\n", pB)
 
 	if pA > pB {
 		normalizedA = versionA

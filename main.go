@@ -12,6 +12,16 @@ type PyramidResponse struct {
 	IsPyramidWord bool   `json:"isPyramid"`
 }
 
+type VersionsResponse struct {
+	VersionA     string `json:"versionA"`
+	VersionB     string `json:"versionB"`
+	Relationship string `json:"relationship"`
+}
+
+type ErrMalformedVersion struct {
+	Message string `json:"message"`
+}
+
 func main() {
 	log.SetPrefix("")
 	log.SetFlags(0)
@@ -31,6 +41,27 @@ func main() {
 		return c.JSON(http.StatusOK, &PyramidResponse{
 			Word:          word,
 			IsPyramidWord: IsPyramidWord(word),
+		})
+	})
+	apiV1.GET("/versions/:versionA/:versionB", func(c echo.Context) error {
+		versionA := c.Param("versionA")
+		versionB := c.Param("versionB")
+
+		if versionA == "" || versionB == "" {
+			return echo.ErrNotFound
+		}
+
+		relationship, err := VersionStringCompare(versionA, versionB)
+		if err != nil {
+			bad := echo.ErrBadRequest
+			bad.Message = "one or both version strings was malformed. ensure they contain only digits and periods"
+			return bad
+		}
+
+		return c.JSON(http.StatusOK, &VersionsResponse{
+			VersionA:     versionA,
+			VersionB:     versionB,
+			Relationship: relationship,
 		})
 	})
 
