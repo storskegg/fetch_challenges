@@ -10,6 +10,7 @@ const (
 	defVerRelationship = "equal to"
 )
 
+// VersionStringCompare is a method that accepts two version strings, and returns a relationship phrase and an error.
 func VersionStringCompare(versionA, versionB string) (string, error) {
 	fmt.Printf("Comparing %s and %s...\n", versionA, versionB)
 
@@ -48,6 +49,7 @@ func VersionStringCompare(versionA, versionB string) (string, error) {
 	return fmt.Sprintf("%s is %s %s", versionA, relationship, versionB), nil
 }
 
+// NormalizeVersionStrings normalizes version strings so that `2` can be compared with `2.0.0.0.0` more easily
 func NormalizeVersionStrings(versionA, versionB string) (normalizedA, normalizedB string) {
 	normalizedA = versionA
 	normalizedB = versionB
