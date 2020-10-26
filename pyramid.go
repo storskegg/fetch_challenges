@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sort"
 	"strings"
 )
@@ -14,11 +13,8 @@ func IsPyramidWord(word string) (b bool) {
 
 	ledger, lenLedger := LedgerFromWord(word)
 
-	fmt.Println(ledger)
-
 	lastIdx := lenLedger - 1
 	counts := SortLedgerCounts(ledger, lenLedger)
-	fmt.Println(counts)
 
 	return IsCardinalIncrementalOrder(counts, lastIdx)
 }
@@ -41,8 +37,7 @@ func LedgerFromWord(word string) (*Ledger, int) {
 func SortLedgerCounts(ledger *Ledger, lenLedger int) []int {
 	vals := make([]int, lenLedger)
 	c := 0
-	for r, n := range *ledger {
-		fmt.Printf("[%c] %d\n", r, n)
+	for _, n := range *ledger {
 		vals[c] = n
 		c++
 	}

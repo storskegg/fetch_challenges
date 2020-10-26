@@ -82,7 +82,48 @@ func TestIsPyramidWord(t *testing.T) {
 		args  args
 		wantB bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "banana should be true",
+			args: args{
+				word: "banana",
+			},
+			wantB: true,
+		},
+		{
+			name: "bandana should be false",
+			args: args{
+				word: "bandana",
+			},
+			wantB: false,
+		},
+		{
+			name: "add should be true",
+			args: args{
+				word: "add",
+			},
+			wantB: true,
+		},
+		{
+			name: "oh should be false",
+			args: args{
+				word: "oh",
+			},
+			wantB: false,
+		},
+		{
+			name: "a should be true",
+			args: args{
+				word: "a",
+			},
+			wantB: true,
+		},
+		{
+			name: "add should be true",
+			args: args{
+				word: "add",
+			},
+			wantB: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
