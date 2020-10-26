@@ -18,10 +18,6 @@ type VersionsResponse struct {
 	Relationship string `json:"relationship"`
 }
 
-type ErrMalformedVersion struct {
-	Message string `json:"message"`
-}
-
 func main() {
 	log.SetPrefix("")
 	log.SetFlags(0)
@@ -38,10 +34,10 @@ func main() {
 			return echo.ErrNotFound
 		}
 
-		return c.JSON(http.StatusOK, &PyramidResponse{
+		return c.JSONPretty(http.StatusOK, &PyramidResponse{
 			Word:          word,
 			IsPyramidWord: IsPyramidWord(word),
-		})
+		}, "  ")
 	})
 	apiV1.GET("/versions/:versionA/:versionB", func(c echo.Context) error {
 		versionA := c.Param("versionA")
@@ -58,11 +54,11 @@ func main() {
 			return bad
 		}
 
-		return c.JSON(http.StatusOK, &VersionsResponse{
+		return c.JSONPretty(http.StatusOK, &VersionsResponse{
 			VersionA:     versionA,
 			VersionB:     versionB,
 			Relationship: relationship,
-		})
+		}, "  ")
 	})
 
 	err := e.Start("localhost:3000")
