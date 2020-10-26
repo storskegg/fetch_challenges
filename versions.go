@@ -48,7 +48,7 @@ func VersionStringCompare(versionA, versionB string) (string, error) {
 		}
 	}
 
-	return fmt.Sprintf("%s is %s %s\n", versionA, relationship, versionB), nil
+	return fmt.Sprintf("%s is %s %s", versionA, relationship, versionB), nil
 }
 
 func NormalizeVersionStrings(versionA, versionB string) (normalizedA, normalizedB string) {

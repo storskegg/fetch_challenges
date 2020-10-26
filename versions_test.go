@@ -83,7 +83,87 @@ func TestVersionStringCompare(t *testing.T) {
 		want    string
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Given 1.0.0 and 1.0.1, should get 1.0.0 is before 1.0.1",
+			args: args{
+				versionA: "1.0.0",
+				versionB: "1.0.1",
+			},
+			want:    "1.0.0 is before 1.0.1",
+			wantErr: false,
+		},
+		{
+			name: "Given 2.0 and 1.0.17, should get 2.0 is after 1.0.17",
+			args: args{
+				versionA: "2.0",
+				versionB: "1.0.17",
+			},
+			want:    "2.0 is after 1.0.17",
+			wantErr: false,
+		},
+		{
+			name: "Given 1.18.0 and 1.18.0, should get 1.18.0 is equal to 1.18.0",
+			args: args{
+				versionA: "1.18.0",
+				versionB: "1.18.0",
+			},
+			want:    "1.18.0 is equal to 1.18.0",
+			wantErr: false,
+		},
+		{
+			name: "Given 1.18.0 and 1.18, should get 1.18.0 is equal to 1.18",
+			args: args{
+				versionA: "1.18.0",
+				versionB: "1.18",
+			},
+			want:    "1.18.0 is equal to 1.18",
+			wantErr: false,
+		},
+		{
+			name: "Given 2.1 and 2.1.0, should get 2.1 is equal to 2.1.0",
+			args: args{
+				versionA: "2.1",
+				versionB: "2.1.0",
+			},
+			want:    "2.1 is equal to 2.1.0",
+			wantErr: false,
+		},
+		{
+			name: "Given 1.18.1 and 1.18, should get 1.18.1 is after 1.18",
+			args: args{
+				versionA: "1.18.1",
+				versionB: "1.18",
+			},
+			want:    "1.18.1 is after 1.18",
+			wantErr: false,
+		},
+		{
+			name: "Given 2.1 and 2.1.1, should get 2.1 is before 2.1.1",
+			args: args{
+				versionA: "2.1",
+				versionB: "2.1.1",
+			},
+			want:    "2.1 is before 2.1.1",
+			wantErr: false,
+		},
+		{
+			name: "Given 1.99.99 and 2.00, should get 1.99.99 is before 2.00",
+			args: args{
+				versionA: "1.99.99",
+				versionB: "2.00",
+			},
+			want:    "1.99.99 is before 2.00",
+			wantErr: false,
+		},
+		{
+			name: "Given pearljam and ween, should error",
+			args: args{
+				versionA: "pearljam",
+				versionB: "ween",
+			},
+			want:    "",
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
