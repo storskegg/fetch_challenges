@@ -15,7 +15,54 @@ func TestIsCardinalIncrementalOrder(t *testing.T) {
 		args  args
 		wantB bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "1, 2, 3, 4 should return true",
+			args: args{
+				counts:  []int{1, 2, 3, 4},
+				lastIdx: 3,
+			},
+			wantB: true,
+		},
+		{
+			name: "1, 1, 2, 3, 4 should return false",
+			args: args{
+				counts:  []int{1, 1, 2, 3, 4},
+				lastIdx: 4,
+			},
+			wantB: false,
+		},
+		{
+			name: "2, 3, 4, 5 should return false",
+			args: args{
+				counts:  []int{2, 3, 4, 5},
+				lastIdx: 3,
+			},
+			wantB: false,
+		},
+		{
+			name: "0, 1, 2, 3, 4 should return false",
+			args: args{
+				counts:  []int{0, 1, 2, 3, 4},
+				lastIdx: 4,
+			},
+			wantB: false,
+		},
+		{
+			name: "1, 2, 3, 3 should return false",
+			args: args{
+				counts:  []int{1, 2, 3, 3},
+				lastIdx: 3,
+			},
+			wantB: false,
+		},
+		{
+			name: "1 should return true",
+			args: args{
+				counts:  []int{1},
+				lastIdx: 0,
+			},
+			wantB: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
