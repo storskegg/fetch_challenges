@@ -8,9 +8,6 @@ import (
 type Ledger map[rune]int
 
 func IsPyramidWord(word string) (b bool) {
-	// Let's be case-insensitive
-	word = strings.ToLower(word)
-
 	ledger := LedgerFromWord(word)
 	counts := SortLedgerCounts(ledger)
 
@@ -18,6 +15,7 @@ func IsPyramidWord(word string) (b bool) {
 }
 
 func LedgerFromWord(word string) Ledger {
+	word = strings.ToLower(word)
 	ledger := make(Ledger, len(word))
 
 	for _, letter := range word {

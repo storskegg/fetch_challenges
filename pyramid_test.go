@@ -83,6 +83,13 @@ func TestIsPyramidWord(t *testing.T) {
 			wantB: true,
 		},
 		{
+			name: "banANa should be true",
+			args: args{
+				word: "banANa",
+			},
+			wantB: true,
+		},
+		{
 			name: "bandana should be false",
 			args: args{
 				word: "bandana",
@@ -117,6 +124,13 @@ func TestIsPyramidWord(t *testing.T) {
 			},
 			wantB: true,
 		},
+		{
+			name: "atl should be false",
+			args: args{
+				word: "atl",
+			},
+			wantB: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -132,12 +146,32 @@ func TestLedgerFromWord(t *testing.T) {
 		word string
 	}
 	tests := []struct {
-		name  string
-		args  args
-		want  *Ledger
-		want1 int
+		name string
+		args args
+		want Ledger
 	}{
-		// TODO: Add test cases.
+		{
+			name: "banana to ledger",
+			args: args{
+				word: "banana",
+			},
+			want: Ledger{
+				'a': 3,
+				'b': 1,
+				'n': 2,
+			},
+		},
+		{
+			name: "banANa to ledger",
+			args: args{
+				word: "banANa",
+			},
+			want: Ledger{
+				'a': 3,
+				'b': 1,
+				'n': 2,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
