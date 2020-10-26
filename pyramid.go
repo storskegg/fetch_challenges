@@ -11,15 +11,13 @@ func IsPyramidWord(word string) (b bool) {
 	// Let's be case-insensitive
 	word = strings.ToLower(word)
 
-	ledger, lenLedger := LedgerFromWord(word)
+	ledger := LedgerFromWord(word)
+	counts := SortLedgerCounts(ledger)
 
-	lastIdx := lenLedger - 1
-	counts := SortLedgerCounts(ledger, lenLedger)
-
-	return IsCardinalIncrementalOrder(counts, lastIdx)
+	return IsCardinalIncrementalOrder(counts)
 }
 
-func LedgerFromWord(word string) (*Ledger, int) {
+func LedgerFromWord(word string) Ledger {
 	ledger := make(Ledger, len(word))
 
 	for _, letter := range word {
@@ -31,13 +29,14 @@ func LedgerFromWord(word string) (*Ledger, int) {
 		}
 	}
 
-	return &ledger, len(ledger)
+	return ledger
 }
 
-func SortLedgerCounts(ledger *Ledger, lenLedger int) []int {
+func SortLedgerCounts(ledger Ledger) []int {
+	lenLedger := len(ledger)
 	vals := make([]int, lenLedger)
 	c := 0
-	for _, n := range *ledger {
+	for _, n := range ledger {
 		vals[c] = n
 		c++
 	}
@@ -45,7 +44,13 @@ func SortLedgerCounts(ledger *Ledger, lenLedger int) []int {
 	return vals
 }
 
-func IsCardinalIncrementalOrder(counts []int, lastIdx int) (b bool) {
+func IsCardinalIncrementalOrder(counts []int) (b bool) {
+	if len(counts) == 1 {
+		return true
+	}
+
+	lastIdx := len(counts) - 1
+
 	for idx, n := range counts {
 		if idx == 0 {
 			if n == 1 {
